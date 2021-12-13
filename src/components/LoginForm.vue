@@ -17,6 +17,7 @@
 
 <script>
 import Swal from "sweetalert2";
+import constants from "../constants";
 
 export default {
   name: "LoginForm",
@@ -31,7 +32,7 @@ export default {
 
   methods: {
     loginUser: async function() {
-      await this.$axios.post("http://localhost/api/login", this.user).then(
+      await this.$axios.post(constants.API_URL + "/login", this.user).then(
           (response) => {
             //Because we are getting only token we need to refetch data
             localStorage.setItem('token', response.data.token);

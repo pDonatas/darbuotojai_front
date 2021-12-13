@@ -5,6 +5,8 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue';
 import store from '../store'
 import Post from "../views/Post";
+import Create from "../views/posts/Create";
+import constants from "../constants";
 
 Vue.use(VueRouter)
 
@@ -31,7 +33,7 @@ const routes = [
     },
     {
         path: '/logout',
-        name: 'Register',
+        name: 'Logout',
         beforeEnter(to, from, next){
             localStorage.clear();
             store.commit('setUser', {
@@ -45,12 +47,26 @@ const routes = [
             })
         }
     },
+    {
+        path: '/posts/create',
+        name: 'Create posts',
+        component: Create
+    }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    routes
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.name !== 'Login' && to.name !== 'Register') {
+        if (localStorage.getItem('token') == null) {
+            return next({ name: 'Login' });
+        }
+    }
+
+    next();
 })
 
 export default router

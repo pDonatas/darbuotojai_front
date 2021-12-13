@@ -1,9 +1,3 @@
-const path = require("path");
-
-require("dotenv").config({
-  path: path.join(__dirname, "..", ".env")
-});
-
 import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
@@ -31,6 +25,16 @@ axios.interceptors.request.use(function (config) {
   config.headers.Authorization = "Bearer " + localStorage.getItem('token');
 
   return config;
+});
+
+axios.interceptors.response.use(response => {
+  return response;
+}, error => {
+  if (error.response.status === 401) {
+    localStorage.clear();
+  }
+
+  return Promise.reject(error);
 });
 
 new Vue({

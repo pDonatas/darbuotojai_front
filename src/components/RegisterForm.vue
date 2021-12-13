@@ -28,6 +28,7 @@
 
 <script>
 import Swal from "sweetalert2";
+import constants from "../constants";
 
 export default {
   name: "LoginForm",
@@ -42,7 +43,7 @@ export default {
 
   methods: {
     registerUser: function() {
-      this.$axios.post("http://localhost/api/register", this.user).then(
+      this.$axios.post(constants.API_URL + "/register", this.user).then(
           (response) => {
             this.$store.commit('setUser', response.data.user);
 
