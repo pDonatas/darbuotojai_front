@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import vuex from 'vuex'
+import axios from 'axios'
+Vue.use(vuex)
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default new vuex.Store({
   state: {
     user: {
       username: null,

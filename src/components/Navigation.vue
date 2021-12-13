@@ -6,6 +6,7 @@
       <router-link v-if="$store.state.user.email === null" to="/login">Login</router-link>
       <router-link v-if="$store.state.user.email === null" to="/register">Register</router-link>
       <router-link v-if="$store.state.user.email !== null" to="/logout">Logout</router-link>
+      <router-link v-if="$store.state.user.email !== null" to="/posts">Posts</router-link>
     </div>
   </nav>
 </template>
