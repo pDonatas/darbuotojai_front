@@ -7,6 +7,8 @@ import store from '../store'
 import Post from "../views/Post";
 import Create from "../views/posts/Create";
 import constants from "../constants";
+import Orders from "../views/Orders";
+import Categories from "../views/Categories";
 
 Vue.use(VueRouter)
 
@@ -30,6 +32,16 @@ const routes = [
         path: '/posts',
         name: 'Posts',
         component: Post
+    },
+    {
+        path: '/orders',
+        name: 'Orders',
+        component: Orders
+    },
+    {
+        path: '/categories',
+        name: 'Categories',
+        component: Categories
     },
     {
         path: '/logout',
