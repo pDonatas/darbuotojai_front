@@ -60,12 +60,12 @@ export default new vuex.Store({
       }
     },
 
-    async fetchPosts({commit}) {
+    async fetchPosts({commit, dispatch}) {
       if (localStorage.getItem('token')) {
         await axios.get(constants.API_URL + '/posts').then(
             (response) => {
               commit('setPosts', response.data.posts);
-              this.state.dispatch('fetchCategories');
+              dispatch('fetchCategories');
             }
         )
       }

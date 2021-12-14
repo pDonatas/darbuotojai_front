@@ -6,7 +6,7 @@
         <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Post" label-for="slug">
           <!-- <label for="slug">Post</label> -->
            <b-form-select class="form-control" style="width: 50%" id="slug" name="slug" v-model="order.slug">
-             <b-form-select-option v-for="post in this.posts" :value="post.slug">{{ post.title }}</b-form-select-option>
+             <b-form-select-option v-for="post in this.posts" :value="post.slug" :key="post.slug">{{ post.title }}</b-form-select-option>
            </b-form-select>
          </b-form-group>
        </div>

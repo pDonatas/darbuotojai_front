@@ -2,7 +2,7 @@
   <div class="home">
     <Layout :parameters="this.parameters">
       <Post v-if="posts.length > 0" v-for="post in posts" :post="post" v-bind:key="post.id"></Post>
-      <div v-else>
+      <div v-if="posts.length === 0">
         There are no posts currently. <router-link :to="{name: 'Create posts'}">Create new</router-link>
       </div>
     </Layout>
@@ -15,6 +15,7 @@ import Layout from '@/components/Layout.vue'
 import Post from "../components/Post";
 import constants from "../constants";
 import {mapGetters} from "vuex";
+import PostMixin from "../mixins/PostMixin";
 
 export default {
   name: 'Home',
@@ -22,9 +23,10 @@ export default {
     Post,
     Layout
   },
+  mixins: [PostMixin],
+
   data() {
     return {
-      posts: [],
       parameters: {
         nav: true,
         head: true,
@@ -33,32 +35,18 @@ export default {
         testimonials: true,
         callToAction: true,
         footer: true
-      }
-    }
-  },
+      },
 
-  computed: {
-    ...mapGetters(['getPosts'])
+      posts: [],
+    }
   },
 
   mounted() {
     this.$store.dispatch('fetchPosts');
   },
 
-  created() {
-    // Set a watcher on Vuex' mutations
-    this.unsubscribe = this.$store.subscribe((mutation, state) => {
-      // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
-      // Here, add your namespace if your module is namespaced : yourNamespace/updateUsers
-      if (mutation.type === 'setPosts') {
-        this.posts = this.getPosts;
-      }
-    });
-  },
-
-  beforeDestroy() {
-    // Unsubscribe when the component is going to be destroyed
-    this.unsubscribe();
+  async created() {
+    this.posts = await this.getPosts();
   },
 }
 </script>

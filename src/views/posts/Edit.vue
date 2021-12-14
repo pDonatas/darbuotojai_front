@@ -1,15 +1,18 @@
 <template>
   <Layout :parameters="parameters">
-    <PostForm :create="true"></PostForm>
+    <PostForm :data="this.post"></PostForm>
   </Layout>
 </template>
 
 <script>
 import Layout from "../../components/Layout";
 import PostForm from "../../components/Post/PostForm";
+import PostMixin from "../../mixins/PostMixin";
+
 export default {
-  name: "PostCreate",
+  name: "PostEdit",
   components: {PostForm, Layout},
+  mixins: [PostMixin],
 
   data() {
     return {
@@ -17,12 +20,14 @@ export default {
         nav: true,
         main: true,
         footer: true
-      }
+      },
+
+      post: null,
     }
   },
 
-  mounted() {
-    this.$store.dispatch('fetchCategories');
+  async created() {
+    this.post = await this.getPostData(this.$route.params.slug);
   }
 }
 </script>
