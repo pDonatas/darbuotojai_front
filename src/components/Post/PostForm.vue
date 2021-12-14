@@ -1,25 +1,37 @@
 <template>
-  <form v-on:submit.prevent="createPost">
+  <form v-on:submit.prevent="create ? createPost() : updatePost(post.slug)">
     <div class="form-group">
       <label for="title">Title</label>
-      <input class="form-control" id="title" name="title" type="text" v-model="post.title"/>
+      <input :disabled="view" class="form-control" id="title" name="title" type="text" v-model="post.title"/>
     </div>
     <div class="form-group">
       <label for="content">Content</label>
-      <textarea class="form-control" id="content" name="content" v-model="post.content"></textarea>
+      <textarea :disabled="view" class="form-control" id="content" name="content" v-model="post.content"></textarea>
     </div>
     <div v-if="this.categories.length > 0" class="form-group">
       <label for="category">Category</label>
-      <select class="form-control" id="category" name="category" v-model="post.category">
+      <select :disabled="view" class="form-control" id="category" name="category" v-model="post.category">
         <option v-for="category in this.categories" :value="category.id">{{ category.name }}</option>
       </select>
     </div>
     <div class="form-group">
       <label for="price">Price</label>
-      <input class="form-control" id="price" name="price" type="number" step="0.01" v-model="post.price"/>
+      <input :disabled="view" class="form-control" id="price" name="price" type="number" step="0.01" v-model="post.price"/>
+    </div>
+<!--    <div v-if="!view" class="form-group">-->
+<!--      <label for="photo">Photo</label>-->
+<!--      <input :disabled="view" class="form-control" id="photo" name="photo" type="file" accept="image/*" ref="photo"/>-->
+<!--    </div>-->
+<!--    <div v-else>-->
+<!--      <img v-if="post.img" :src="post.img" :alt="post.title" />-->
+<!--    </div>-->
+    <div v-if="view && this.data !== null && this.data.user_id === this.$store.getters.user.id">
+      <router-link :to="{ name: 'Edit posts', params: { slug: post.slug }}">Edit</router-link> |
+
+      <router-link :to="{ name: 'Delete posts', params: { slug: post.slug }}">Delete</router-link>
     </div>
 
-    <input class="btn btn-primary" type="submit" value="Create" />
+    <input v-if="!view" class="btn btn-primary" type="submit" :value="create ? `Create` : `Update`" />
   </form>
 </template>
 
@@ -43,27 +55,77 @@ export default {
     }
   },
 
+  props: {
+    data: {},
+    view: false,
+    create: false
+  },
+
+  watch: {
+    data() {
+      this.post.title = this.data.title;
+      this.post.content = this.data.content;
+      this.post.price = this.data.price;
+      this.post.category = this.data.category;
+      this.post.slug = this.data.slug;
+    }
+  },
+
   computed: {
     ...mapGetters(['getCategories'])
   },
 
   created() {
-    // Set a watcher on Vuex' mutations
-    this.unsubscribe = this.$store.subscribe((mutation, state) => {
-      // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
-      // Here, add your namespace if your module is namespaced : yourNamespace/updateUsers
-      if (mutation.type === 'setCategories') {
-        this.categories = this.getCategories;
-      }
-    });
+    if (this.getCategories.length === 0) {
+      // Set a watcher on Vuex' mutations
+      this.unsubscribe = this.$store.subscribe((mutation, state) => {
+        // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
+        // Here, add your namespace if your module is namespaced : yourNamespace/updateUsers
+        if (mutation.type === 'setCategories') {
+          this.categories = this.getCategories;
+        }
+      });
+    }
+
+    this.categories = this.getCategories;
   },
 
   beforeDestroy() {
-    // Unsubscribe when the component is going to be destroyed
-    this.unsubscribe();
+    if (this.unsubscribe !== undefined) {
+      this.unsubscribe();
+    }
   },
 
   methods: {
+    updatePost() {
+      axios.patch(constants.API_URL + '/posts/' + this.post.slug, this.post).then(
+          (response) => {
+            Swal.fire({
+              title: 'Success!',
+              text: "You have successfully updated post",
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            });
+          }
+      ).catch(function (error) {
+        let message = "";
+        if (error.response.data.errors !== undefined) {
+          let fields = Object.values(error.response.data.errors);
+          fields.forEach(function (field) {
+            message += field += "\n";
+          })
+        } else if (error.response.data.error !== undefined) {
+          message = error.response.data.error;
+        }
+
+        Swal.fire({
+          title: 'Error!',
+          text: message,
+          icon: 'error',
+          confirmButtonText: 'Cool'
+        })
+      });
+    },
     createPost() {
       axios.post(constants.API_URL + '/posts', this.post).then(
           (response) => {

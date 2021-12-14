@@ -1,15 +1,17 @@
 <template>
   <Layout :parameters="parameters">
-    <PostForm :create="true"></PostForm>
+    <PostForm></PostForm>
   </Layout>
 </template>
 
 <script>
 import Layout from "../../components/Layout";
 import PostForm from "../../components/Post/PostForm";
+import PostMixin from "../../mixins/PostMixin";
 export default {
   name: "PostCreate",
   components: {PostForm, Layout},
+  mixins: [PostMixin],
 
   data() {
     return {
@@ -21,8 +23,13 @@ export default {
     }
   },
 
-  mounted() {
-    this.$store.dispatch('fetchCategories');
+  async mounted() {
+    this.post = await this.getPostData(this.$route.params.slug);
+    if (this.post === undefined || this.post.user_id !== this.$store.getters.user.id) {
+      await this.$router.push('/');
+    }
+
+    await this.removePost(this.$route.params.slug);
   }
 }
 </script>
