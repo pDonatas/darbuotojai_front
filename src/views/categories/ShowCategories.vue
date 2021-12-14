@@ -1,21 +1,21 @@
 <template>
   <div class="home">
     <Layout :parameters="this.parameters">
-      Categories
+      <AllCategories></AllCategories>
     </Layout>
   </div>
 </template>
 
 <script>
 import Header from "../../components/Header";
-import LoginForm from "../../components/LoginForm";
 import Layout from "../../components/Layout";
+import AllCategories from "../../components/Category/AllCategories";
 
 export default {
   name: "ShowCategories",
   components: {
     Header,
-    LoginForm,
+    AllCategories,
     Layout
   },
   data() {
