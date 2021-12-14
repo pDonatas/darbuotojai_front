@@ -7,8 +7,10 @@ import store from '../store'
 import Post from "../views/Post";
 import Create from "../views/posts/Create";
 import constants from "../constants";
-import Orders from "../views/Orders";
-import Categories from "../views/Categories";
+import OrderCreate from "../views/orders/OrderCreate";
+import OrdersShowAll from "../views/orders/OrdersShowAll";
+import CategoryCreate from "../views/categories/CategoryCreate";
+import ShowCategories from "../views/categories/ShowCategories";
 
 Vue.use(VueRouter)
 
@@ -34,14 +36,24 @@ const routes = [
         component: Post
     },
     {
+        path: '/orders/create',
+        name: 'OrderCreate',
+        component: OrderCreate
+    },
+    {
         path: '/orders',
         name: 'Orders',
-        component: Orders
+        component: OrdersShowAll
     },
     {
         path: '/categories',
-        name: 'Categories',
-        component: Categories
+        name: 'Show',
+        component: ShowCategories
+    },
+    {
+        path: '/categories/create',
+        name: 'CategoryCreate',
+        component: CategoryCreate
     },
     {
         path: '/logout',

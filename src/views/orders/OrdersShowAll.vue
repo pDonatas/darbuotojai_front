@@ -1,23 +1,23 @@
 <template>
   <div class="home">
     <Layout :parameters="this.parameters">
-      <OrderForm></OrderForm>
+      Orders
     </Layout>
   </div>
 </template>
 
 <script>
-import Header from "../components/Header";
-import Layout from "../components/Layout";
-import OrderForm from "../components/OrderForm";
+import Header from "../../components/Header";
+import Layout from "../../components/Layout";
+import OrderForm from "../../components/Order/OrderForm";
 
 export default {
-  name: "Orders",
+  name: "OrderShowAll",
   components: {
     Header,
     OrderForm,
     Layout
-},
+  },
   data() {
     return {
       parameters: {

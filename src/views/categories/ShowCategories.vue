@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import Header from "../components/Header";
-import LoginForm from "../components/LoginForm";
-import Layout from "../components/Layout";
+import Header from "../../components/Header";
+import LoginForm from "../../components/LoginForm";
+import Layout from "../../components/Layout";
 
 export default {
-  name: "Categories",
+  name: "ShowCategories",
   components: {
     Header,
     LoginForm,
