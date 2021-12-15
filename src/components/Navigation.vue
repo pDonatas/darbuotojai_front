@@ -1,15 +1,16 @@
 <template>
   <!-- Navigation-->
-  <b-navbar-nav class="navbar navbar-light bg-light static-top">
+  <b-navbar type="light" variant="light">
+  <b-navbar-nav class="navbar navbar-light bg-light static-top" >
     <div class="container">
-      <router-link to="/">Home</router-link>
-      <router-link v-if="$store.state.user.email === null" to="/login">Login</router-link>
-      <router-link v-if="$store.state.user.email === null" to="/register">Register</router-link>
-      <router-link v-if="$store.state.user.email !== null" to="/logout">Logout</router-link>
-      <router-link to="/posts">Posts</router-link>
+      <b-nav-item><router-link to="/">Home</router-link> </b-nav-item>
+      <b-nav-item><router-link v-if="$store.state.user.email === null" to="/login">Login</router-link></b-nav-item>
+      <b-nav-item><router-link v-if="$store.state.user.email === null" to="/register">Register</router-link></b-nav-item>
+      <b-nav-item><router-link v-if="$store.state.user.email !== null" to="/logout">Logout</router-link></b-nav-item>
+      <b-nav-item><router-link to="/posts">Posts</router-link></b-nav-item>
       <b-nav-item-dropdown text="Orders">
-        <b-nav-item> <router-link to="/orders/create">Create order</router-link> </b-nav-item>
-        <b-nav-item> <router-link to="/orders">Show orders</router-link> </b-nav-item>
+        <b-nav-item> <router-link :to="{name: 'OrderCreate' }">Create order</router-link> </b-nav-item>
+        <b-nav-item> <router-link :to="{name: 'Orders' }">Show orders</router-link> </b-nav-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Categories">
         <b-nav-item> <router-link to="/categories/create">Create category</router-link> </b-nav-item>
@@ -17,6 +18,7 @@
       </b-nav-item-dropdown>
     </div>
   </b-navbar-nav>
+  </b-navbar>
 </template>
 
 <script>
