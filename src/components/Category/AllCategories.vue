@@ -7,13 +7,18 @@
            <tr>
              <th>Id</th>
              <th>Name</th>
+             <th></th>
            </tr>
            </thead>
            <tbody>
               <tr v-for="category in this.categories" :key="category.id">
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
-                <b-button variant="danger" v-on:click="deleteCategory(category.id)">Delete</b-button>
+                <td>
+                  <b-button variant="danger" v-on:click="deleteCategory(category.id)">Delete</b-button>
+                  <b-button variant="primary" v-on:click="$router.push({name: 'Posts by category', params: {category: category.id}})">View posts</b-button>
+                  <b-button variant="primary" v-on:click="$router.push({name: 'Create category posts', params: {category: category.id}})">Create post</b-button>
+                </td>
               </tr>
            </tbody>
          </table>

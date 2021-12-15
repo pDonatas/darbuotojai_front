@@ -5,11 +5,12 @@
 </template>
 
 <script>
-import Layout from "../../components/Layout";
-import PostForm from "../../components/Post/PostForm";
-import PostMixin from "../../mixins/PostMixin";
+import PostForm from "../../../components/Post/PostForm";
+import Layout from "../../../components/Layout";
+import PostMixin from "../../../mixins/PostMixin";
+
 export default {
-  name: "DeleteCreate",
+  name: "CategoryPostDelete",
   components: {PostForm, Layout},
   mixins: [PostMixin],
 

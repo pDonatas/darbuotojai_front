@@ -7,7 +7,6 @@
       <b-nav-item><router-link v-if="$store.state.user.email === null" to="/login">Login</router-link></b-nav-item>
       <b-nav-item><router-link v-if="$store.state.user.email === null" to="/register">Register</router-link></b-nav-item>
       <b-nav-item><router-link v-if="$store.state.user.email !== null" to="/logout">Logout</router-link></b-nav-item>
-      <b-nav-item><router-link to="/posts">Posts</router-link></b-nav-item>
       <b-nav-item-dropdown text="Orders">
         <b-nav-item> <router-link :to="{name: 'OrderCreate' }">Create order</router-link> </b-nav-item>
         <b-nav-item> <router-link :to="{name: 'Orders' }">Show orders</router-link> </b-nav-item>
