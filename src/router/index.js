@@ -7,12 +7,14 @@ import store from '../store'
 import Post from "../views/Post";
 import Create from "../views/posts/Create";
 import OrderCreate from "../views/orders/OrderCreate";
-import OrdersShowAll from "../views/orders/OrdersShowAll";
+import ShowOrders from "../views/orders/ShowOrders";
 import CategoryCreate from "../views/categories/CategoryCreate";
 import ShowCategories from "../views/categories/ShowCategories";
 import View from "../views/posts/View";
 import Edit from "../views/posts/Edit";
 import Delete from "../views/posts/Delete";
+import EditOrder from "../views/orders/EditOrder";
+import EditCategory from "../views/categories/EditCategory";
 
 Vue.use(VueRouter)
 
@@ -45,7 +47,12 @@ const routes = [
     {
         path: '/orders',
         name: 'Orders',
-        component: OrdersShowAll
+        component: ShowOrders
+    },
+    {
+        path: '/orders/edit/:id',
+        name: 'EditOrder',
+        component: EditOrder
     },
     {
         path: '/categories',
@@ -56,6 +63,11 @@ const routes = [
         path: '/categories/create',
         name: 'CategoryCreate',
         component: CategoryCreate
+    },
+    {
+        path: '/categories/edit/:id',
+        name: 'EditCategory',
+        component: EditCategory
     },
     {
         path: '/logout',

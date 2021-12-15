@@ -3,9 +3,9 @@ import axios from 'axios';
 
 export default {
     methods: {
-        async getCategoryData(slug) {
-            return await axios.get(constants.API_URL + '/categories/' + slug)
-                .then(response => response.data.category);
+        async getCategoryData(id) {
+            return await axios.get(constants.API_URL + '/categories/' + id)
+                .then(response => response.data);
         }
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Layout :parameters="this.parameters">
-      Orders
+      <AllOrders></AllOrders>
     </Layout>
   </div>
 </template>
@@ -9,13 +9,13 @@
 <script>
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
-import OrderForm from "../../components/Order/OrderForm";
+import AllOrders from "../../components/Order/AllOrders";
 
 export default {
-  name: "OrderShowAll",
+  name: "Orders",
   components: {
+    AllOrders,
     Header,
-    OrderForm,
     Layout
   },
   data() {
@@ -25,8 +25,10 @@ export default {
         main: true,
         footer: true
       }
+
     }
-  }
+  },
+
 }
 </script>
 

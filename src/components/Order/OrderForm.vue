@@ -12,8 +12,7 @@
        </div>
        <div>
          <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Requirements" label-for="requirements">
-          <!-- <label for="requirements">Requirements</label> -->
-          <b-form-input class="form-control" style="width: 50%" id="requirements" name="requirements" type="text" v-model="order.requirements"/>
+           <b-form-input class="form-control" style="width: 50%" id="requirements" name="requirements" type="text" v-model="order.requirements"/>
         </b-form-group>
       </div>
       <!--
@@ -32,6 +31,7 @@
 import Swal from "sweetalert2";
 import constants from "../../constants";
 import {mapGetters} from "vuex";
+import axios from "axios";
 
 export default {
   name: "OrderForm",
@@ -68,19 +68,15 @@ export default {
     this.$store.dispatch('fetchPosts');
   },
   methods: {
-    createOrder: async function () {
-      await this.$axios.post(constants.API_URL + '/orders', this.order).then(
+    createOrder() {
+     this.$axios.post(constants.API_URL + '/orders', this.order).then(
           (response) => {
-
-
             Swal.fire({
               title: 'Success!',
               text: "You have successfully created an order",
               icon: 'success',
               confirmButtonText: 'Ok'
             });
-
-
             this.$refs.order_form.reset();
           }
       )
@@ -103,7 +99,8 @@ export default {
             })
           });
     }
-  }
+  },
+
 }
 </script>
 

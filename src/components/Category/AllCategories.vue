@@ -13,6 +13,7 @@
               <tr v-for="category in this.categories" :key="category.id">
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
+                <b-button variant="info"> <router-link :to="{ name: 'EditCategory', params:{id: category.id}}">Edit </router-link>  </b-button>
                 <b-button variant="danger" v-on:click="deleteCategory(category.id)">Delete</b-button>
               </tr>
            </tbody>
@@ -34,27 +35,6 @@ export default {
 
     }
   },
-  /*computed: {
-    ...mapGetters(['getCategories'])
-  },
-  created() {
-    // Set a watcher on Vuex' mutations
-    this.unsubscribe = this.$store.subscribe((mutation, state) => {
-      // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
-      // Here, add your namespace if your module is namespaced : yourNamespace/updateUsers
-      if (mutation.type === 'setCategories') {
-        this.posts = this.getCategories;
-      }
-    });
-  },
-
-  beforeDestroy() {
-    // Unsubscribe when the component is going to be destroyed
-    this.unsubscribe();
-  },
-  mounted() {
-    this.$store.dispatch('fetchCategories');
-  },*/
   mounted(){
       this.getCategories();
   },
