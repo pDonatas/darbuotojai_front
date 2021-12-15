@@ -10,7 +10,7 @@
     </div>
     <div v-if="this.categories.length > 0" class="form-group">
       <label for="category">Category</label>
-      <select :disabled="view" class="form-control" id="category" name="category" v-model="post.category">
+      <select :disabled="view || preCategory != '0'" class="form-control" id="category" name="category" v-model="post.category">
         <option v-for="category in this.categories" :value="category.id">{{ category.name }}</option>
       </select>
     </div>
@@ -49,7 +49,7 @@ export default {
       post: {
         title: null,
         content: null,
-        category: "0",
+        category: this.preCategory,
         price: 0
       }
     }
@@ -58,7 +58,8 @@ export default {
   props: {
     data: {},
     view: false,
-    create: false
+    create: false,
+    preCategory: "0"
   },
 
   watch: {
@@ -68,7 +69,7 @@ export default {
       this.post.price = this.data.price;
       this.post.category = this.data.category;
       this.post.slug = this.data.slug;
-    }
+    },
   },
 
   computed: {
