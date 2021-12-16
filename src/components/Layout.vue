@@ -3,7 +3,10 @@
   <Navigation v-if="parameters.nav"></Navigation>
   <Header v-if="parameters.head"></Header>
   <IconsSection v-if="parameters.icons"></IconsSection>
-  <MainSection v-if="parameters.main"><slot></slot></MainSection>
+  <MainSection v-if="parameters.main">
+    <slot></slot>
+    <slot name="subcontent"></slot>
+  </MainSection>
   <TestimonialsSection v-if="parameters.testimonials"></TestimonialsSection>
   <CallToActionSection v-if="parameters.callToAction"></CallToActionSection>
   <Footer v-if="parameters.footer"></Footer>

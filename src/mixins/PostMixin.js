@@ -4,6 +4,28 @@ import Swal from "sweetalert2";
 
 export default {
     methods: {
+        async voteForPost(post, voteData) {
+            return await axios.post(constants.API_URL + '/categories/' + post.category + '/posts/' + post.slug + '/votes', voteData)
+                .then(() => {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Vote has been made successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then(() => {
+                        this.$router.go();
+                    })
+                }).catch(
+                    (error) => {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: error.response.data.errors,
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                );
+        },
         async fetchPostsByCategory(category) {
             return await axios.get(constants.API_URL + '/categories/' + category + '/posts')
                 .then(response => response.data.posts).catch(

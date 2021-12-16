@@ -1,6 +1,6 @@
 <template>
   <div class="post">
-    <router-link :to="'/posts/' + post.slug"><img :src="post.image" :alt="post.title" class="img-thumbnail"></router-link>
+    <router-link :to="'/posts/' + post.slug"><b-img blank blank-color="#abc" width="128" alt="placeholder"></b-img></router-link>
     <div class="heading">{{ post.title }}</div>
     <div class="sub-text">{{ post.subtext }}</div>
     <div v-if="edit">

@@ -1,18 +1,21 @@
 <template>
   <Layout :parameters="parameters">
     <PostForm :data="this.post" :view="true"></PostForm>
+    <template v-slot:subcontent><ul class="list-unstyled"><Vote v-for="vote in votes" :post="post" :vote="vote" :key="vote.id"></Vote></ul></template>
   </Layout>
 </template>
 
 <script>
-import PostForm from "../../../components/Post/PostForm";
 import Layout from "../../../components/Layout";
+import PostForm from "../../../components/Post/PostForm";
 import PostMixin from "../../../mixins/PostMixin";
+import Vote from "../../../components/Vote/Vote";
+import VotesMixin from "../../../mixins/VotesMixin";
 
 export default {
-  name: "CategoryPostView",
-  components: {PostForm, Layout},
-  mixins: [PostMixin],
+  name: "PostView",
+  components: {Vote, PostForm, Layout},
+  mixins: [PostMixin, VotesMixin],
 
   data() {
     return {
@@ -23,11 +26,13 @@ export default {
       },
 
       post: null,
+      votes: [],
     }
   },
 
   async created() {
     this.post = await this.getPostData(this.$route.params.slug);
+    this.votes = await this.getPostVotes(this.post);
   }
 }
 </script>
