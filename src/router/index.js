@@ -15,6 +15,7 @@ import Edit from "../views/posts/Edit";
 import Delete from "../views/posts/Delete";
 import EditOrder from "../views/orders/EditOrder";
 import EditCategory from "../views/categories/EditCategory";
+import ShowSpecific from "../views/orders/ShowSpecific";
 
 Vue.use(VueRouter)
 
@@ -48,6 +49,11 @@ const routes = [
         path: '/orders',
         name: 'Orders',
         component: ShowOrders
+    },
+    {
+        path: '/order',
+        name: 'ShowSpecific',
+        component: ShowSpecific
     },
     {
         path: '/orders/edit/:id',

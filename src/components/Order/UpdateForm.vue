@@ -9,6 +9,7 @@
             </b-form-group>
           </div>
             <b-button variant="success" type="submit">Update</b-button>
+            <b-button variant="danger" to="/orders">Cancel</b-button>
         </form>
       </div>
     </b-card>

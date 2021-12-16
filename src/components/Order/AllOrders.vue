@@ -17,8 +17,10 @@
             <td>{{ order.requirement }}</td>
             <td>{{ order.service[0].title}}</td>
             <td>{{ order.service[0].content}}</td>
-            <b-button variant="info"> <router-link :to="{ name: 'EditOrder', params:{id: order.id}}">Edit </router-link>  </b-button>
-            <b-button variant="danger" v-on:click="deleteOrder(order.id)">Delete</b-button>
+            <td>
+              <b-button variant="info"> <router-link :to="{ name: 'EditOrder', params:{id: order.id}}">Edit </router-link>  </b-button>
+              <b-button variant="danger" v-on:click="deleteOrder(order.id)">Delete</b-button>
+            </td>
           </tr>
           </tbody>
         </table>
