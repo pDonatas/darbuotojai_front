@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import Layout from "../../components/Layout";
-import PostForm from "../../components/Post/PostForm";
-import PostMixin from "../../mixins/PostMixin";
-import Vote from "../../components/Vote/Vote";
-import VotesMixin from "../../mixins/VotesMixin";
+import Layout from "../../../components/Layout";
+import PostForm from "../../../components/Post/PostForm";
+import PostMixin from "../../../mixins/PostMixin";
+import Vote from "../../../components/Vote/Vote";
+import VotesMixin from "../../../mixins/VotesMixin";
 
 export default {
   name: "PostView",

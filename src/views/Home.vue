@@ -3,8 +3,9 @@
     <Layout :parameters="this.parameters">
       <Post v-if="posts.length > 0" v-for="post in posts" :post="post" v-bind:key="post.id"></Post>
       <div v-if="posts.length === 0">
-        There are no posts currently. <router-link :to="{name: 'Create posts'}">Create new</router-link>
+        There are no posts currently.
       </div>
+      <router-link :to="{name: 'Create posts'}">Create new</router-link>
     </Layout>
   </div>
 </template>

@@ -16,6 +16,11 @@ import Delete from "../views/posts/Delete";
 import EditOrder from "../views/orders/EditOrder";
 import EditCategory from "../views/categories/EditCategory";
 import ShowSpecific from "../views/orders/ShowSpecific";
+import CategoryPostView from "../views/categories/posts/View";
+import CategoryPostCreate from "../views/categories/posts/Create";
+import CategoryPostEdit from "../views/categories/posts/Edit";
+import CategoryPostDelete from "../views/categories/posts/Delete";
+import CategoryPostIndex from "../views/categories/posts/Index";
 
 Vue.use(VueRouter)
 
@@ -110,6 +115,31 @@ const routes = [
         path: '/posts/:slug',
         name: 'View posts',
         component: View
+    },
+    {
+        path: '/categories/:category/posts',
+        name: 'Posts by category',
+        component: CategoryPostIndex
+    },
+    {
+        path: '/categories/:category/posts/create',
+        name: 'Create category posts',
+        component: CategoryPostCreate
+    },
+    {
+        path: '/categories/:category/posts/:slug/edit',
+        name: 'Edit posts by category',
+        component: CategoryPostEdit
+    },
+    {
+        path: '/categories/:category/posts/:slug/delete',
+        name: 'Delete posts by category',
+        component: CategoryPostDelete
+    },
+    {
+        path: '/categories/:category/posts/:slug',
+        name: 'View posts by category',
+        component: CategoryPostView
     }
 ]
 
