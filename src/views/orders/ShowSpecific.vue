@@ -1,23 +1,17 @@
 <template>
-  <div class="home">
-    <Layout :parameters="this.parameters">
-      Orders
-    </Layout>
-  </div>
+  <ShowSpecificOrder></ShowSpecificOrder>
 </template>
 
 <script>
+import ShowSpecificOrder from "../../components/Order/ShowSpecificOrder";
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
-import OrderForm from "../../components/Order/OrderForm";
-
 export default {
-  name: "OrderShowAll",
+  name: "ShowSpecific",
   components: {
     Header,
-    OrderForm,
-    Layout
-  },
+    ShowSpecificOrder,
+    Layout},
   data() {
     return {
       parameters: {
@@ -25,8 +19,9 @@ export default {
         main: true,
         footer: true
       }
+
     }
-  }
+  },
 }
 </script>
 
