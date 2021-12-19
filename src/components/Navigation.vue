@@ -10,10 +10,15 @@
       <b-nav-item-dropdown text="Orders">
         <b-nav-item> <router-link :to="{name: 'OrderCreate' }">Create order</router-link> </b-nav-item>
         <b-nav-item> <router-link :to="{name: 'Orders' }">Show orders</router-link> </b-nav-item>
+        <b-nav-item> <router-link :to="{name: 'PostOrderShowAll' }">Show post orders</router-link> </b-nav-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Categories">
         <b-nav-item> <router-link to="/categories/create">Create category</router-link> </b-nav-item>
         <b-nav-item> <router-link to="/categories">Show categories</router-link> </b-nav-item>
+      </b-nav-item-dropdown>
+      <b-nav-item-dropdown text="Bookmarks">
+        <b-nav-item> <router-link :to="{name: 'UsersPostsBookmarkCreate' }">Create user post bookmark</router-link> </b-nav-item>
+        <b-nav-item> <router-link :to="{name: 'UsersPostsBookmarksShowAll' }">Show user post bookmarks</router-link> </b-nav-item>
       </b-nav-item-dropdown>
     </div>
   </b-navbar-nav>

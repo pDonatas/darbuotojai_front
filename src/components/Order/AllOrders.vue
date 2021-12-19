@@ -2,6 +2,7 @@
   <div>
     <b-card bg-variant="light">
       <div v-if="this.orders.length > 0" class="form-group">
+        <b-td class="align-content-center fw-bold" style="font-size: 20px"> Orders</b-td>
         <table>
           <thead>
           <tr>
@@ -15,8 +16,8 @@
           <tr v-for="order in this.orders" :key="order.id">
             <td>{{ order.id }}</td>
             <td>{{ order.requirement }}</td>
-            <td>{{ order.service[0].title}}</td>
-            <td>{{ order.service[0].content}}</td>
+            <td>{{ order.service[0].title }}</td>
+            <td>{{ order.service[0].content }}</td>
             <td>
               <b-button variant="info"> <router-link :to="{ name: 'EditOrder', params:{id: order.id}}">Edit </router-link>  </b-button>
               <b-button variant="danger" v-on:click="deleteOrder(order.id)">Delete</b-button>

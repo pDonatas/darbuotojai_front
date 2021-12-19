@@ -2,14 +2,14 @@
   <div>
     <b-card bg-variant="light">
       <div class="form-group">
-        <form v-on:submit.prevent="updateOrder">
+        <form v-on:submit.prevent="updatePostOrder()">
           <div>
             <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Requirements" label-for="requirements">
               <b-form-input class="form-control" style="width: 50%" id="requirements" name="requirements" type="text" v-model="order.requirements"/>
             </b-form-group>
           </div>
-            <b-button variant="success" type="submit">Update</b-button>
-            <b-button variant="danger" to="/orders">Cancel</b-button>
+          <b-button variant="success" type="submit">Update</b-button>
+          <b-button variant="danger" to="/posts/orders">Cancel</b-button>
         </form>
       </div>
     </b-card>
@@ -17,17 +17,18 @@
 </template>
 
 <script>
-import constants from "../../constants";
+import constants from "../../../constants";
 import Swal from "sweetalert2";
 
 export default {
-  name: "UpdateForm",
+  name: "PostOrderUpdateForm",
   data() {
     return {
       order :
           {
             id: null,
-            requirements: null
+            requirements: null,
+            slug:null
           }
     }
   },
@@ -40,19 +41,20 @@ export default {
     data() {
       this.order.id = this.data.id;
       this.order.requirements = this.data.requirement;
+      this.order.slug = this.data.slug;
     }
   },
   methods: {
-    updateOrder() {
-          this.$axios.patch(constants.API_URL + '/orders/' + this.order.id, this.order).then(
+    updatePostOrder() {
+      this.$axios.patch(constants.API_URL + '/posts/'+ this.order.slug +'/orders/' + this.order.id, this.order).then(
           (response) => {
             Swal.fire({
               title: 'Success!',
               text: "You have successfully updated an order",
               icon: 'success',
-              confirmButtonText: 'Ok'
+              confirmButtonText: 'Ok',
             }).then((onConfirm) => {
-              this.$router.push({name: 'Orders'});
+              this.$router.push({name: 'PostOrderShowAll'});
             });
           }
       )
@@ -77,7 +79,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>

@@ -2,14 +2,14 @@
   <div>
     <b-card bg-variant="light">
       <div class="form-group">
-        <form v-on:submit.prevent="updateOrder">
+        <form v-on:submit.prevent="updateUserPostBookmark()">
           <div>
-            <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Requirements" label-for="requirements">
-              <b-form-input class="form-control" style="width: 50%" id="requirements" name="requirements" type="text" v-model="order.requirements"/>
+            <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Post" label-for="post">
+              <b-form-input class="form-control" style="width: 50%" id="post" name="post" type="number" v-model="post"/>
             </b-form-group>
           </div>
-            <b-button variant="success" type="submit">Update</b-button>
-            <b-button variant="danger" to="/orders">Cancel</b-button>
+          <b-button variant="success" type="submit">Update</b-button>
+          <b-button variant="danger" to="/users/posts/bookmarks">Cancel</b-button>
         </form>
       </div>
     </b-card>
@@ -21,14 +21,17 @@ import constants from "../../constants";
 import Swal from "sweetalert2";
 
 export default {
-  name: "UpdateForm",
+  name: "UsersPostsBookmarkUpdateForm",
   data() {
     return {
-      order :
+      bookmark :
           {
             id: null,
-            requirements: null
-          }
+            slug: null,
+            user_id:null
+          },
+      post:null
+
     }
   },
   props: {
@@ -38,21 +41,22 @@ export default {
   },
   watch: {
     data() {
-      this.order.id = this.data.id;
-      this.order.requirements = this.data.requirement;
+      this.bookmark.id = this.data.id;
+      this.bookmark.slug = this.data.slug;
+      this.bookmark.user_id = this.data.user_id;
     }
   },
   methods: {
-    updateOrder() {
-          this.$axios.patch(constants.API_URL + '/orders/' + this.order.id, this.order).then(
+    updateUserPostBookmark() {
+      this.$axios.patch(constants.API_URL + '/users/'+ this.bookmark.user_id +'/posts/'+ this.bookmark.slug +'/bookmarks/' + this.bookmark.id, this.post).then(
           (response) => {
             Swal.fire({
               title: 'Success!',
-              text: "You have successfully updated an order",
+              text: "You have successfully updated an bookmark",
               icon: 'success',
-              confirmButtonText: 'Ok'
+              confirmButtonText: 'Ok',
             }).then((onConfirm) => {
-              this.$router.push({name: 'Orders'});
+              this.$router.push({name: 'UsersPostsBookmarksShowAll'});
             });
           }
       )
@@ -77,7 +81,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>
