@@ -1,15 +1,18 @@
 <template>
   <div>
-  <Navigation v-if="parameters.nav"></Navigation>
-  <Header v-if="parameters.head"></Header>
-  <IconsSection v-if="parameters.icons"></IconsSection>
-  <MainSection v-if="parameters.main">
-    <slot></slot>
-    <slot name="subcontent"></slot>
-  </MainSection>
-  <TestimonialsSection v-if="parameters.testimonials"></TestimonialsSection>
-  <CallToActionSection v-if="parameters.callToAction"></CallToActionSection>
-  <Footer v-if="parameters.footer"></Footer>
+    <Loader v-if="loading" />
+    <div v-else>
+      <Navigation v-if="parameters.nav"></Navigation>
+      <Header v-if="parameters.head"></Header>
+      <IconsSection v-if="parameters.icons"></IconsSection>
+      <MainSection v-if="parameters.main">
+        <slot></slot>
+        <slot name="subcontent"></slot>
+      </MainSection>
+      <TestimonialsSection v-if="parameters.testimonials"></TestimonialsSection>
+      <CallToActionSection v-if="parameters.callToAction"></CallToActionSection>
+      <Footer v-if="parameters.footer"></Footer>
+    </div>
   </div>
 </template>
 
@@ -21,10 +24,14 @@ import MainSection from "./MainSection";
 import TestimonialsSection from "./TestimonialsSection";
 import CallToActionSection from "./CallToActionSection";
 import Footer from "./Footer";
+import {mapState} from "vuex";
+import Loader from "./Loader";
+
 
 export default {
   name: 'Layout',
   components: {
+    Loader,
     Navigation,
     Header,
     IconsSection,
@@ -45,7 +52,10 @@ export default {
     }
   },
   mounted() {
-  }
+  },
+  computed: {
+    ...mapState('loader', ['loading'])
+  },
 }
 </script>
 

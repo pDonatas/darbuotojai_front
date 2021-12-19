@@ -46,6 +46,7 @@ export default {
     updateOrder() {
           this.$axios.patch(constants.API_URL + '/orders/' + this.order.id, this.order).then(
           (response) => {
+            this.$store.dispatch('fetchOrders');
             Swal.fire({
               title: 'Success!',
               text: "You have successfully updated an order",

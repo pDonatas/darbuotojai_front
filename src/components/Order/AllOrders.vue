@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card bg-variant="light">
-      <div v-if="this.orders.length > 0" class="form-group">
+      <div v-if="this.$store.getters.getOrders !== null && this.$store.getters.getOrders.length > 0" class="form-group">
         <b-td class="align-content-center fw-bold" style="font-size: 20px"> Orders</b-td>
         <table>
           <thead>
@@ -13,7 +13,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="order in this.orders" :key="order.id">
+          <tr v-for="order in this.$store.getters.getOrders" :key="order.id">
             <td>{{ order.id }}</td>
             <td>{{ order.requirement }}</td>
             <td>{{ order.service[0].title }}</td>
@@ -33,6 +33,8 @@
 <script>
 import constants from "../../constants";
 import Swal from "sweetalert2";
+import axios from "axios";
+
 export default {
   name: "AllOrders",
   data() {
@@ -40,19 +42,21 @@ export default {
       orders :[],
     }
   },
-  mounted(){
-    this.getOrders();
+  async created(){
+    if (this.$store.getters.getOrders == null) {
+      await this.getOrders();
+    }
   },
   methods:{
     async getOrders(){
-      await this.$axios.get(constants.API_URL + '/orders').then(
+      await axios.get(constants.API_URL + '/orders').then(
           response => {
             this.orders = response.data.orders;
-
+            this.$store.commit('setOrders', response.data.orders);
           })
     },
     deleteOrder(id) {
-      this.$axios.delete(constants.API_URL + '/orders/' + id).then(
+      axios.delete(constants.API_URL + '/orders/' + id).then(
           response =>{
             Swal.fire({
               title: 'Success!',
@@ -60,7 +64,7 @@ export default {
               icon: 'success',
               confirmButtonText: 'Ok'
             })
-            this.getOrders();
+            this.$store.dispatch('fetchOrders');
           }
       )
           .catch(function (error) {

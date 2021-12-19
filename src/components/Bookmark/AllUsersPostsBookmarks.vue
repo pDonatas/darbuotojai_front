@@ -68,10 +68,9 @@ export default {
     }
   },
   mixins:[UserMixin],
-  computed: {
-    ...mapGetters(['getPosts'])
-  },
+
   created() {
+    this.posts = this.$store.getters.getPosts;
     // Set a watcher on Vuex' mutations
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
@@ -87,8 +86,11 @@ export default {
     this.unsubscribe();
   },
   mounted() {
-    this.$store.dispatch('fetchPosts');
-    this.users = this.getUsers()
+    if (this.$store.getters.getUsers == null) {
+      this.users = this.getUsers()
+    }
+
+    this.users = this.$store.getters.getUsers;
   },
   methods: {
     async getUsersPostBookmarks(user_id, slug) {

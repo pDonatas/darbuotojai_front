@@ -46,6 +46,7 @@ export default {
       console.log(this.category.id);
       this.$axios.patch(constants.API_URL + '/categories/' + this.category.id, this.category).then(
           (response) => {
+            this.$store.dispatch('fetchCategories');
             Swal.fire({
               title: 'Success!',
               text: "You have successfully updated a category",

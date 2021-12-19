@@ -30,7 +30,6 @@ export default {
   },
   async created() {
     this.category = await this.getCategoryData(this.$route.params.id);
-    console.log(this.category);
   }
 }
 </script>

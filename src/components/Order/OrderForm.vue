@@ -3,7 +3,7 @@
     <b-card bg-variant="light">
     <form v-on:submit.prevent="createOrder" ref="order_form">
       <b-td class="align-content-center fw-bold" style="font-size: 20px"> Create order</b-td>
-      <div v-if="this.posts.length > 0">
+      <div v-if="this.posts !== null">
         <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Post" label-for="slug">
            <b-form-select class="form-control" style="width: 50%" id="slug" name="slug" v-model="order.slug">
              <b-form-select-option v-for="post in this.posts" :value="post.slug" :key="post.slug">{{ post.title }}</b-form-select-option>
@@ -30,11 +30,11 @@
 <script>
 import Swal from "sweetalert2";
 import constants from "../../constants";
-import {mapGetters} from "vuex";
-import axios from "axios";
+import PostMixin from "../../mixins/PostMixin";
 
 export default {
   name: "OrderForm",
+  mixins: [PostMixin],
   data() {
     return {
       posts: [],
@@ -45,28 +45,11 @@ export default {
     }
 
   },
-  computed: {
-    ...mapGetters(['getPosts'])
+
+  async created() {
+    this.posts = this.$store.getters.getPosts;
   },
 
-  created() {
-    // Set a watcher on Vuex' mutations
-    this.unsubscribe = this.$store.subscribe((mutation, state) => {
-      // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
-      // Here, add your namespace if your module is namespaced : yourNamespace/updateUsers
-      if (mutation.type === 'setPosts') {
-        this.posts = this.getPosts;
-      }
-    });
-  },
-
-  beforeDestroy() {
-    // Unsubscribe when the component is going to be destroyed
-    this.unsubscribe();
-  },
-  mounted() {
-    this.$store.dispatch('fetchPosts');
-  },
   methods: {
     createOrder() {
      this.$axios.post(constants.API_URL + '/orders', this.order).then(

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import vuex from 'vuex'
 import axios from 'axios'
 import constants from "../constants";
+import {loader} from "./modules/loader";
 Vue.use(vuex)
 
 export default new vuex.Store({
@@ -12,8 +13,10 @@ export default new vuex.Store({
       token: null
     },
 
-    posts: [],
-    categories: []
+    posts: null,
+    categories: null,
+    orders: null,
+    users: null
   },
   mutations: {
     setUser(state, user) {
@@ -31,11 +34,21 @@ export default new vuex.Store({
     setPosts(state, posts) {
       state.posts = posts
     },
+
+    setOrders(state, orders) {
+      state.orders = orders
+    },
+
+    setUsers(state, users) {
+      state.users = users;
+    }
   },
   getters: {
     user: state => state.user,
     getCategories: state => state.categories,
     getPosts: state => state.posts,
+    getOrders: state => state.orders,
+    getUsers: state => state.users
   },
   actions: {
     logoutUser() {
@@ -70,8 +83,20 @@ export default new vuex.Store({
         )
       }
     },
+
+    async fetchOrders({commit}) {
+      if (localStorage.getItem('token')) {
+        await axios.get(constants.API_URL + '/orders').then(
+            (response) => {
+              commit('setOrders', response.data.orders)
+            }
+        )
+      }
+    },
+
   },
 
   modules: {
+    loader
   }
 })

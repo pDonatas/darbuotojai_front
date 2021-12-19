@@ -19,7 +19,7 @@ export default {
                     (error) => {
                         Swal.fire({
                             title: 'Error!',
-                            text: error.response.data.errors,
+                            text: error.response.data.errors.comment[0],
                             icon: 'error',
                             confirmButtonText: 'Ok'
                         })

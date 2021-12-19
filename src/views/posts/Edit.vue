@@ -1,6 +1,6 @@
 <template>
   <Layout :parameters="parameters">
-    <PostForm :data="this.post"></PostForm>
+    <PostForm :pre-post="this.post"></PostForm>
   </Layout>
 </template>
 

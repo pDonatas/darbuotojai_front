@@ -21,24 +21,63 @@ require('@/assets/css/styles.css');
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
+
+axios.defaults.showLoader = true;
+
 axios.interceptors.request.use(function (config) {
   config.headers.Authorization = "Bearer " + localStorage.getItem('token');
 
   return config;
 });
 
-axios.interceptors.response.use(response => {
-  return response;
-}, error => {
-  if (error.response.status === 401) {
-    localStorage.clear();
-  }
-
-  return Promise.reject(error);
-});
-
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  created() {
+    axios.interceptors.request.use(
+        config => {
+          if (config.showLoader) {
+              if (!store.getters.isLoading) {
+                  store.dispatch('loader/pending');
+              }
+          }
+          return config;
+        },
+        error => {
+          if (error.config.showLoader) {
+              if (store.getters.isLoading) {
+                  store.dispatch('loader/done');
+              }
+          }
+          return Promise.reject(error);
+        }
+    );
+    axios.interceptors.response.use(
+        response => {
+          if (response.config.showLoader) {
+              if (!store.getters.isLoading) {
+                  store.dispatch('loader/done');
+              }
+          }
+
+          return response;
+        },
+        error => {
+          let response = error.response;
+
+          if (response.config.showLoader) {
+              if (!store.getters.isLoading) {
+                  store.dispatch('loader/done');
+              }
+          }
+
+          if (error.response.status === 401) {
+            localStorage.clear();
+          }
+
+          return Promise.reject(error);
+        }
+    )
+  }
 }).$mount('#app')

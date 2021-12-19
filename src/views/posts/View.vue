@@ -1,6 +1,6 @@
 <template>
-  <Layout :parameters="parameters">
-    <PostForm :data="this.post" :view="true"></PostForm>
+  <Layout v-if="this.post != null" :parameters="parameters">
+    <PostForm :prePost="this.post" :view="true"></PostForm>
     <template v-slot:subcontent><ul class="list-unstyled"><Vote v-for="vote in votes" :post="post" :vote="vote" :key="vote.id"></Vote></ul></template>
   </Layout>
 </template>

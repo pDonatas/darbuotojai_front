@@ -41,13 +41,18 @@ export default {
     }
   },
   mounted(){
+    if (this.$store.getters.getCategories == null) {
       this.getCategories();
+    }
+
+    this.categories = this.$store.getters.getCategories;
   },
   methods:{
     async getCategories(){
       await this.$axios.get(constants.API_URL + '/categories').then(
           response => {
             this.categories = response.data;
+            this.$store.commit('setCategories', response.data);
           })
     },
     deleteCategory(id) {

@@ -6,12 +6,12 @@
 
 <script>
   export default {
-    mounted() {
+    async mounted() {
       if (localStorage.getItem('token') !== null && this.$store.state.user.email === null) {
-        this.$store.dispatch("fetchData");
-        this.$store.dispatch("fetchCategories");
+        await this.$store.dispatch("fetchData");
+        await this.$store.dispatch("fetchPosts");
       }
-    }
+    },
   }
 </script>
 

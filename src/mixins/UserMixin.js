@@ -5,6 +5,7 @@ export default {
             await this.$axios.get(constants.API_URL + '/user').then(
                 response => {
                     this.users = response.data;
+                    this.$store.commit('setUsers', this.users);
                 })
         },
     }

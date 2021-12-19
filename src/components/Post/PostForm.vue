@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="this.post !== null">
     <form v-on:submit.prevent="create ? createPost() : updatePost(post.slug)">
       <div class="form-group">
         <label for="title">Title</label>
@@ -9,7 +9,7 @@
         <label for="content">Content</label>
         <textarea :disabled="view" class="form-control" id="content" name="content" v-model="post.content"></textarea>
       </div>
-      <div v-if="this.categories.length > 0" class="form-group">
+      <div v-if="this.categories !== null && this.categories.length > 0" class="form-group">
         <label for="category">Category</label>
         <select :disabled="(view || preCategory != null) && !create" class="form-control" id="category" name="category" v-model="post.category">
           <option v-for="category in this.categories" :value="category.id">{{ category.name }}</option>
@@ -26,7 +26,7 @@
   <!--    <div v-else>-->
   <!--      <img v-if="post.img" :src="post.img" :alt="post.title" />-->
   <!--    </div>-->
-      <div v-if="view && this.data !== null && this.data.user_id === this.$store.getters.user.id">
+      <div v-if="view && this.prePost !== null && this.prePost.user_id === this.$store.getters.user.id">
         <router-link :to="{ name: 'Edit posts', params: { slug: post.slug }}">Edit</router-link> |
 
         <router-link :to="{ name: 'Delete posts', params: { slug: post.slug }}">Delete</router-link>
@@ -82,19 +82,27 @@ export default {
   },
 
   props: {
-    data: {},
+    prePost: {
+      title: null,
+      content: null,
+      category: null,
+      price: 0
+    },
     view: false,
     create: false,
     preCategory: null
   },
 
   watch: {
-    data() {
-      this.post.title = this.data.title;
-      this.post.content = this.data.content;
-      this.post.price = this.data.price;
-      this.post.category = this.data.category;
-      this.post.slug = this.data.slug;
+    prePost() {
+      if (this.prePost !== undefined && this.prePost !== null) {
+        this.post = {};
+        this.post.title = this.prePost.title;
+        this.post.content = this.prePost.content;
+        this.post.price = this.prePost.price;
+        this.post.category = this.prePost.category;
+        this.post.slug = this.prePost.slug;
+      }
     },
   },
 
@@ -103,7 +111,7 @@ export default {
   },
 
   created() {
-    if (this.getCategories.length === 0) {
+    if (this.getCategories === null) {
       // Set a watcher on Vuex' mutations
       this.unsubscribe = this.$store.subscribe((mutation, state) => {
         // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
@@ -115,6 +123,8 @@ export default {
     }
 
     this.categories = this.getCategories;
+
+    this.post = this.prePost !== undefined ? this.prePost : this.post;
   },
 
   beforeDestroy() {
@@ -125,6 +135,9 @@ export default {
 
   methods: {
     updatePost() {
+      if (this.post.img !== undefined) {
+        this.post.img = undefined;
+      }
       axios.patch(constants.API_URL + '/posts/' + this.post.slug, this.post).then(
           (response) => {
             Swal.fire({

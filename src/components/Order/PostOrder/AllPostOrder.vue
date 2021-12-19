@@ -59,11 +59,10 @@ export default {
       showPostOrders : false
     }
   },
-  computed: {
-    ...mapGetters(['getPosts'])
-  },
+
   created() {
     // Set a watcher on Vuex' mutations
+    this.posts = this.$store.getters.getPosts;
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
       // Here, add your namespace if your module is namespaced : yourNamespace/updateUsers
@@ -77,9 +76,7 @@ export default {
     // Unsubscribe when the component is going to be destroyed
     this.unsubscribe();
   },
-  mounted() {
-    this.$store.dispatch('fetchPosts');
-  },
+
   methods: {
     async getPostOrders(slug) {
       await this.$axios.get(constants.API_URL + '/posts/' + slug + '/orders').then(

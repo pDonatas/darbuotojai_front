@@ -69,11 +69,9 @@ export default {
       showPostOrder : false,
     }
   },
-  computed: {
-    ...mapGetters(['getPosts'])
-  },
+
   created() {
-    // Set a watcher on Vuex' mutations
+    this.posts = this.$store.getters.getPosts;
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
       // Here, add your namespace if your module is namespaced : yourNamespace/updateUsers
@@ -88,7 +86,9 @@ export default {
     this.unsubscribe();
   },
   mounted() {
-    this.$store.dispatch('fetchPosts');
+    if (this.$store.getters.getPosts == null) {
+      this.$store.dispatch('fetchPosts');
+    }
   },
   methods:{
     async getPostOrder(id,slug){

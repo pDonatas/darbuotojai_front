@@ -15,7 +15,7 @@
 import Layout from '@/components/Layout.vue'
 import Post from "../components/Post";
 import constants from "../constants";
-import {mapGetters} from "vuex";
+import {mapGetters, mapState} from "vuex";
 import PostMixin from "../mixins/PostMixin";
 
 export default {
