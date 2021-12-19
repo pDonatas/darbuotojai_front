@@ -2,9 +2,9 @@
   <div>
     <b-card bg-variant="light">
     <form v-on:submit.prevent="createOrder" ref="order_form">
+      <b-td class="align-content-center fw-bold" style="font-size: 20px"> Create order</b-td>
       <div v-if="this.posts.length > 0">
         <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Post" label-for="slug">
-          <!-- <label for="slug">Post</label> -->
            <b-form-select class="form-control" style="width: 50%" id="slug" name="slug" v-model="order.slug">
              <b-form-select-option v-for="post in this.posts" :value="post.slug" :key="post.slug">{{ post.title }}</b-form-select-option>
            </b-form-select>
@@ -76,8 +76,9 @@ export default {
               text: "You have successfully created an order",
               icon: 'success',
               confirmButtonText: 'Ok'
+            }).then((onConfirm) => {
+              this.$router.push({name: 'Orders'});
             });
-            this.$refs.order_form.reset();
           }
       )
           .catch(function (error) {

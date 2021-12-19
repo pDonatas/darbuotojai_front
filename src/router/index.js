@@ -21,6 +21,13 @@ import CategoryPostCreate from "../views/categories/posts/Create";
 import CategoryPostEdit from "../views/categories/posts/Edit";
 import CategoryPostDelete from "../views/categories/posts/Delete";
 import CategoryPostIndex from "../views/categories/posts/Index";
+import PostOrderShowAll from "../views/posts/orders/PostOrderShowAll";
+import PostOrderEdit from "../views/posts/orders/PostOrderEdit";
+import PostOrderCreate from "../views/posts/orders/PostOrderCreate";
+import UsersPostsBookmarksShowAll from "../views/bookmarks/UsersPostsBookmarksShowAll";
+import UsersPostsBookmarkEdit from "../views/bookmarks/UsersPostsBookmarkEdit";
+import UsersPostsBookmarkShowSpecific from "../views/bookmarks/UsersPostsBookmarkShowSpecific";
+import UsersPostsBookmarkCreate from "../views/bookmarks/UsersPostsBookmarkCreate";
 
 Vue.use(VueRouter)
 
@@ -61,9 +68,44 @@ const routes = [
         component: ShowSpecific
     },
     {
-        path: '/orders/edit/:id',
+        path: '/orders/:id/edit',
         name: 'EditOrder',
         component: EditOrder
+    },
+    {
+        path: '/posts/orders',
+        name: 'PostOrderShowAll',
+        component: PostOrderShowAll
+    },
+    {
+        path: '/posts/:slug/orders/:id/edit',
+        name: 'PostOrderEdit',
+        component: PostOrderEdit
+    },
+    {
+        path: '/posts/:slug/orders/create',
+        name: 'PostOrderCreate',
+        component: PostOrderCreate
+    },
+    {
+        path: '/users/posts/bookmarks',
+        name: 'UsersPostsBookmarksShowAll',
+        component: UsersPostsBookmarksShowAll
+    },
+    {
+        path: '/users/posts/bookmarks/create',
+        name: 'UsersPostsBookmarkCreate',
+        component: UsersPostsBookmarkCreate
+    },
+    {
+        path: '/users/:user_id/posts/:slug/bookmarks/:id/edit',
+        name: 'UsersPostsBookmarkEdit',
+        component: UsersPostsBookmarkEdit
+    },
+    {
+        path: '/users/:user_id/posts/:slug/bookmarks/:id',
+        name: 'UsersPostsBookmarkShowSpecific',
+        component: UsersPostsBookmarkShowSpecific
     },
     {
         path: '/categories',

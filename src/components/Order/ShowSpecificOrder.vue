@@ -2,7 +2,7 @@
   <div>
     <b-card bg-variant="light">
       <div class="form-group">
-        <b-td class="align-content-center fw-bold" style="font-size: 20px"> Show Order</b-td>
+        <b-td class="align-content-center fw-bold" style="font-size: 20px"> Show Specific Order</b-td>
         <form>
           <div>
             <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Id" label-for="id">

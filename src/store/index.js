@@ -30,12 +30,12 @@ export default new vuex.Store({
 
     setPosts(state, posts) {
       state.posts = posts
-    }
+    },
   },
   getters: {
     user: state => state.user,
     getCategories: state => state.categories,
-    getPosts: state => state.posts
+    getPosts: state => state.posts,
   },
   actions: {
     logoutUser() {
@@ -69,8 +69,9 @@ export default new vuex.Store({
             }
         )
       }
-    }
+    },
   },
+
   modules: {
   }
 })
