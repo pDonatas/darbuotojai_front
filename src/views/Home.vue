@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <Layout :parameters="this.parameters">
-      <Post v-if="posts.length > 0" v-for="post in posts" :post="post" v-bind:key="post.id"></Post>
+      <div class="container">
+        <div class="row">
+          <div v-if="posts.length > 0" v-for="post in posts" class="col-lg-4">
+            <Post :post="post" v-bind:key="post.id"></Post>
+          </div>
+        </div>
+      </div>
       <div v-if="posts.length === 0">
         There are no posts currently.
       </div>

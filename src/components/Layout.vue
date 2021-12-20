@@ -10,7 +10,6 @@
         <slot name="subcontent"></slot>
       </MainSection>
       <TestimonialsSection v-if="parameters.testimonials"></TestimonialsSection>
-      <CallToActionSection v-if="parameters.callToAction"></CallToActionSection>
       <Footer v-if="parameters.footer"></Footer>
     </div>
   </div>

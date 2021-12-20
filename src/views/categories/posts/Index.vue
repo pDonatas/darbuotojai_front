@@ -1,6 +1,6 @@
 <template>
   <Layout :parameters="parameters">
-    <Post v-if="posts.length > 0" v-for="post in posts" :post="post" :edit="post.user_id = $store.getters.user.id" v-bind:key="post.id"></Post>
+    <Post v-if="posts.length > 0" v-for="post in posts" :post="post" :edit="post.user_id === $store.getters.user.id" v-bind:key="post.id"></Post>
   </Layout>
 </template>
 

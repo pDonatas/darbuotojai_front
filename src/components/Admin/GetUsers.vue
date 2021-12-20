@@ -12,12 +12,12 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="user in users" :key="user.id">
+          <tr v-for="user in this.$store.getters.getUsers" :key="user.id">
             <td>{{ user.id }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>
-              <b-button variant="success" v-on:click="verifyUser(user.id)">Verify</b-button>
+              <b-button v-if="user.type === 0" variant="success" v-on:click="verifyUser(user.id)">Verify</b-button>
             </td>
           </tr>
           </tbody>
@@ -44,9 +44,9 @@ export default {
   },
 
   mounted() {
-    /*if (this.$store.getters.getUsers == null) {
+    if (this.$store.getters.getUsers == null) {
       this.users = this.getUsers()
-    }*/
+    }
 
     this.users = this.$store.getters.getUsers;
   },
@@ -67,26 +67,23 @@ export default {
               confirmButtonText: 'Ok'
             })
           }
-      )
-          .catch(function (error) {
-            let message = "";
-            if (error.response.data.errors !== undefined) {
-              let fields = Object.values(error.response.data.errors);
-              fields.forEach(function (field) {
-                message += field += "\n";
-              })
-            } else if (error.response.data.error !== undefined) {
-              message = error.response.data.error;
-            }
+      ).catch(function (error) {
+        let message = "";
+        if (error.response.data.errors !== undefined) {
+          message = error.response.data.errors;
+        }
 
-            Swal.fire({
-              title: 'Error!',
-              text: message,
-              icon: 'error',
-              confirmButtonText: 'Cool'
-            })
-          });
-    },
+        Swal.fire({
+          title: 'Error!',
+          text: message,
+          icon: 'error',
+          confirmButtonText: 'Cool'
+        })
+      }).finally(async () => {
+        this.users = await this.getUsers()
+        this.$forceUpdate()
+      });
+    }
   }
 }
 </script>

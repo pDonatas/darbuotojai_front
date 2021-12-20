@@ -1,6 +1,6 @@
 <template>
   <Layout :parameters="parameters">
-    <PostForm :data="this.post" :pre-category="this.$route.params.category"></PostForm>
+    <PostForm :pre-post="this.post" :pre-category="this.$route.params.category"></PostForm>
   </Layout>
 </template>
 
