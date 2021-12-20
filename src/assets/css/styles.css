@@ -11384,6 +11384,21 @@ header.masthead h1, header.masthead .h1 {
 }
 
 footer.footer {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  position: fixed;
+  padding: 10px 10px 0px 10px;
+  bottom: 0;
+  width: 100%;
+}
+
+.list-inline-item a {
+  color: #bebebebe;
+  text-decoration: none;
+}
+
+.list-inline-item a:hover {
+  color: #120a10;
+}
+
+select {
+  min-height: 44px;
 }
