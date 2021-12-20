@@ -229,7 +229,7 @@ router.beforeEach((to, from, next) => {
         }
     }
 
-    if (to.name !== 'Home' && to.name !== 'Login' && to.name !== 'Register') {
+    if (to.name !== 'Home' && to.name !== 'Login' && to.name !== 'Register' && to.name !== 'Logout') {
         if (store.state.user.type === 0) {
             return next({name: 'Home'});
         }
