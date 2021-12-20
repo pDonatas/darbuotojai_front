@@ -11,36 +11,38 @@
             </b-form-select>
             </b-form-group>
           </div>
-          <b-button variant="success" v-on:click="getPostOrders(slug)">Show</b-button>
-        </form>
-      </div>
-    </b-card>
-    <b-card bg-variant="light">
-      <div v-if="showPostOrders && orders.length > 0" class="form-group">
-        <table>
-          <thead>
-          <tr>
-            <th>Id</th>
-            <th> Requirements</th>
-            <th> Ordered post </th>
-            <th> Ordered post content</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="order in this.orders" :key="order.id">
-            <td>{{ order.id }}</td>
-            <td>{{ order.requirement }}</td>
-            <td>{{ order.service[0].title }}</td>
-            <td>{{ order.service[0].content }}</td>
-            <td>
-              <b-button variant="info"> <router-link :to="{ name: 'PostOrderEdit', params:{id: order.id, slug: slug}}">Edit </router-link>  </b-button>
-              <b-button variant="danger" v-on:click="deletePostOrder(slug, order.id)">Delete</b-button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </b-card>
+          <!--  <b-button variant="success" v-on:click="getPostOrders(slug)">Show</b-button>-->
+          <b-button variant="success" v-on:click="$router.push({name: 'PostOrderAll', params: {slug: slug}})">Show</b-button>
+          </form>
+        </div>
+     </b-card>
+      <!--
+      <b-card bg-variant="light">
+        <div v-if="showPostOrders && orders.length > 0" class="form-group">
+          <table>
+            <thead>
+            <tr>
+              <th>Id</th>
+              <th> Requirements</th>
+              <th> Ordered post </th>
+              <th> Ordered post content</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="order in this.orders" :key="order.id">
+              <td>{{ order.id }}</td>
+              <td>{{ order.requirement }}</td>
+              <td>{{ order.service[0].title }}</td>
+              <td>{{ order.service[0].content }}</td>
+              <td>
+                <b-button variant="info"> <router-link :to="{ name: 'PostOrderEdit', params:{id: order.id, slug: slug}}">Edit </router-link>  </b-button>
+                <b-button variant="danger" v-on:click="deletePostOrder(slug, order.id)">Delete</b-button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </b-card>-->
   </div>
 </template>
 
@@ -56,7 +58,7 @@ export default {
       orders :[],
       posts:[],
       slug : null,
-      showPostOrders : false
+     // showPostOrders : false
     }
   },
 
@@ -77,7 +79,7 @@ export default {
     this.unsubscribe();
   },
 
-  methods: {
+  /*methods: {
     async getPostOrders(slug) {
       await this.$axios.get(constants.API_URL + '/posts/' + slug + '/orders').then(
           response => {
@@ -134,7 +136,7 @@ export default {
             })
           });
     },
-  }
+  }*/
 }
 </script>
 

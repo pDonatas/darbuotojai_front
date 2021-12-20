@@ -9,11 +9,11 @@
               <b-form-input class="form-control" style="width: 50%" id="id" name="id" type="number" v-model="id"/>
             </b-form-group>
           </div>
-          <b-button variant="success" v-on:click="getOrder(id)">Show</b-button>
+          <b-button variant="success" v-on:click="$router.push({name: 'Specific', params: {id: id}})">Show</b-button>
         </form>
       </div>
     </b-card>
-    <b-card bg-variant="light">
+    <!--<b-card bg-variant="light">
     <div v-if="showOrder">
     <table>
       <thead>
@@ -34,7 +34,7 @@
       </tbody>
     </table>
     </div>
-    </b-card>
+    </b-card>-->
   </div>
 </template>
 
@@ -57,10 +57,9 @@ export default {
             'content'
             ]
       },
-      showOrder : false,
     }
   },
-  methods:{
+ /* methods:{
     async getOrder(id){
       this.order=await this.getOrderData(id);
       if(this.order !=null){
@@ -76,7 +75,7 @@ export default {
         this.showOrder = false;
       }
       }
-    }
+    }*/
 }
 </script>
 

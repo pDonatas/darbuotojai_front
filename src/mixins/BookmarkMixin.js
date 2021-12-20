@@ -16,6 +16,25 @@ export default {
                         })
                     }
                 );
-        }
+        },
+        async getUsersPostBookmarks(user_id, slug) {
+            return await this.$axios.get(constants.API_URL + '/users/'+ user_id +'/posts/' + slug + '/bookmarks').then(
+                response => {
+                    this.bookmarks = response.data;
+                    Swal.fire({
+                        title: 'Success!',
+                        text: "You have successfully got bookmarks",
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                }).catch(function () {
+                    Swal.fire({
+                    title: 'Error!',
+                    text: "Bookmarks don't exist",
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                })
+            })
+        },
     }
 }

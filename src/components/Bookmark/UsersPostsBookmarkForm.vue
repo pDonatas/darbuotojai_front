@@ -45,12 +45,16 @@ export default {
   mixins:[UserMixin],
   created() {
     this.posts = this.$store.getters.getPosts;
+    this.users = this.$store.getters.getUsers;
     // Set a watcher on Vuex' mutations
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       // Rehydrate the users when an updateUsers mutation was processed inside the Vuex module
       // Here, add your namespace if your module is namespaced : yourNamespace/updateUsers
       if (mutation.type === 'setPosts') {
         this.posts = this.getPosts;
+      }
+      if (mutation.type === 'setUsers') {
+        this.users = this.getUsers;
       }
     });
   },

@@ -54,7 +54,8 @@ export default {
               icon: 'success',
               confirmButtonText: 'Ok',
             }).then((onConfirm) => {
-              this.$router.push({name: 'PostOrderShowAll'});
+              this.$router.back();
+             // this.$router.push({name: 'PostOrderShowAll'});
             });
           }
       )
