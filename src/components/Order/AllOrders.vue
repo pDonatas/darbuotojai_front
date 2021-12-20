@@ -42,19 +42,29 @@ export default {
       orders :[],
     }
   },
-  async created(){
+  /*props: {
+    data: {},
+    view: false,
+    create: false
+  },
+  watch: {
+    data() {
+      this.orders = this.data.orders;
+    }
+  },*/
+  /*async created(){
     if (this.$store.getters.getOrders == null) {
       await this.getOrders();
     }
-  },
+  },*/
   methods:{
-    async getOrders(){
+    /*async getOrders(){
       await axios.get(constants.API_URL + '/orders').then(
           response => {
             this.orders = response.data.orders;
             this.$store.commit('setOrders', response.data.orders);
           })
-    },
+    },*/
     deleteOrder(id) {
       axios.delete(constants.API_URL + '/orders/' + id).then(
           response =>{

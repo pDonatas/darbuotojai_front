@@ -28,6 +28,12 @@ import UsersPostsBookmarksShowAll from "../views/bookmarks/UsersPostsBookmarksSh
 import UsersPostsBookmarkEdit from "../views/bookmarks/UsersPostsBookmarkEdit";
 import UsersPostsBookmarkShowSpecific from "../views/bookmarks/UsersPostsBookmarkShowSpecific";
 import UsersPostsBookmarkCreate from "../views/bookmarks/UsersPostsBookmarkCreate";
+import PostOrderAll from "../views/posts/orders/PostOrderAll";
+import Specific from "../views/orders/Specific";
+import PostOrderSpecific from "../views/posts/orders/PostOrderSpecific";
+import UsersPostsBookmarksAll from "../views/bookmarks/UsersPostsBookmarksAll";
+import UsersPostsBookmarkSpecific from "../views/bookmarks/UsersPostsBookmarkSpecific";
+import AdminGetUsers from "../views/admin/AdminGetUsers";
 
 Vue.use(VueRouter)
 
@@ -78,6 +84,16 @@ const routes = [
         component: PostOrderShowAll
     },
     {
+        path: '/posts/:slug/orders',
+        name: 'PostOrderAll',
+        component: PostOrderAll
+    },
+    {
+        path: '/orders/:id',
+        name: 'Specific',
+        component: Specific
+    },
+    {
         path: '/posts/:slug/orders/:id/edit',
         name: 'PostOrderEdit',
         component: PostOrderEdit
@@ -88,9 +104,19 @@ const routes = [
         component: PostOrderCreate
     },
     {
+        path: '/posts/:slug/orders/:id',
+        name: 'PostOrderSpecific',
+        component: PostOrderSpecific
+    },
+    {
         path: '/users/posts/bookmarks',
         name: 'UsersPostsBookmarksShowAll',
         component: UsersPostsBookmarksShowAll
+    },
+    {
+        path: '/users/:user_id/posts/:slug/bookmarks',
+        name: 'UsersPostsBookmarksAll',
+        component: UsersPostsBookmarksAll
     },
     {
         path: '/users/posts/bookmarks/create',
@@ -104,8 +130,8 @@ const routes = [
     },
     {
         path: '/users/:user_id/posts/:slug/bookmarks/:id',
-        name: 'UsersPostsBookmarkShowSpecific',
-        component: UsersPostsBookmarkShowSpecific
+        name: 'UsersPostsBookmarkSpecific',
+        component: UsersPostsBookmarkSpecific
     },
     {
         path: '/categories',
@@ -182,7 +208,13 @@ const routes = [
         path: '/categories/:category/posts/:slug',
         name: 'View posts by category',
         component: CategoryPostView
-    }
+    },
+    {
+        path: '/admin',
+        name: 'AdminGetUsers',
+        component: AdminGetUsers
+    },
+
 ]
 
 const router = new VueRouter({

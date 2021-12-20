@@ -23,7 +23,7 @@
               </b-form-select>
             </b-form-group>
           </div>
-          <b-button variant="success" v-on:click="getUserPostBookmark(user_id,slug,id)">Show</b-button>
+          <b-button variant="success" v-on:click="$router.push({name: 'UsersPostsBookmarkSpecific', params: {user_id: user_id,slug:slug, id:id}})">Show</b-button>
         </form>
       </div>
     </b-card>

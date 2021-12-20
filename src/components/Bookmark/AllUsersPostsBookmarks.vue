@@ -18,11 +18,11 @@
               </b-form-select>
             </b-form-group>
           </div>
-          <b-button variant="success" v-on:click="getUsersPostBookmarks(user_id,slug)">Show</b-button>
+          <b-button variant="success" v-on:click="$router.push({name: 'UsersPostsBookmarksAll', params: {user_id: user_id,slug:slug}})">Show</b-button>
         </form>
       </div>
     </b-card>
-    <b-card bg-variant="light">
+   <!-- <b-card bg-variant="light">
       <div v-if="showUsersPostsBookmarks && bookmarks.length > 0" class="form-group">
         <table>
           <thead>
@@ -38,14 +38,14 @@
             <td>{{ bookmark.user_id }}</td>
             <td>{{ bookmark.post }}</td>
             <td>
-             <!-- <b-button variant="info"> <router-link :to="{ name: 'UsersPostsBookmarkEdit', params:{id: bookmark.id, slug: slug, user_id: bookmark.user_id}}">Edit </router-link>-->  </b-button>
+              <b-button variant="info"> <router-link :to="{ name: 'UsersPostsBookmarkEdit', params:{id: bookmark.id, slug: slug, user_id: bookmark.user_id}}">Edit </router-link>  </b-button>
               <b-button variant="danger" v-on:click="deleteUsersPostsBookmarks(bookmark.user_id,slug, bookmark.id)">Delete</b-button>
             </td>
           </tr>
           </tbody>
         </table>
       </div>
-    </b-card>
+    </b-card>-->
   </div>
 </template>
 
