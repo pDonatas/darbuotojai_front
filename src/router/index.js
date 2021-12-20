@@ -210,7 +210,7 @@ const routes = [
         component: CategoryPostView
     },
     {
-        path: '/categories/:category/posts/:slug',
+        path: '/admin',
         name: 'AdminGetUsers',
         component: AdminGetUsers
     },
