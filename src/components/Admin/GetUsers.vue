@@ -58,7 +58,7 @@ export default {
   },
   methods:{
     verifyUser(id) {
-      axios.get(constants.API_URL + 'admin/verify/user/' + id).then(
+      axios.get(constants.API_URL + '/admin/verify/user/' + id).then(
           response =>{
             Swal.fire({
               title: 'Success!',
